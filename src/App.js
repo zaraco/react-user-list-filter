@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import {BrowserRouter as Router , Route, Switch} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import AddForm from "./Component/AddForm";

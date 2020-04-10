@@ -94,6 +94,8 @@ class AddForm extends Component {
         return (
             <>
                 {errorAlert}
+                <br/>
+                <br/>
                 <Form>
                     <Form.Group as={Row} controlId="formHorizontalName">
                         <Form.Label column sm={2}>

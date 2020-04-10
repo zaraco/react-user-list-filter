@@ -12,11 +12,13 @@ class ShowUser extends Component {
 
 
     }
-changeHandlerSearch = (e) => {
+
+    changeHandlerSearch = (e) => {
         this.setState({
             search: e.target.value
         })
-}
+    }
+
     render() {
         const {items} = this.state
         let total = items.length ? items.map((item, i) =>
@@ -41,35 +43,39 @@ changeHandlerSearch = (e) => {
 
         return (
             <>
+                <br/>
+                <br/>
                 <Form>
                     <Form.Group as={Row} controlId="formHorizontalSearch">
                         <Form.Label column sm={2}>
                             Search
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" placeholder="Search..." value={this.state.search} onChange={this.changeHandlerSearch}  />
+                            <Form.Control type="text" placeholder="Search..." value={this.state.search}
+                                          onChange={this.changeHandlerSearch}/>
                         </Col>
                     </Form.Group>
                 </Form>
-                    <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Gender</th>
-                            <th>State</th>
-                        </tr>
-                        </thead>
+                <h1 style={{textAlign:'center'}}>User List</h1>
+                <Table striped bordered hover>
+                    <thead>
+                    <tr>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Gender</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                        {total}
+                    {total}
 
-                        </tbody>
-                    </Table>
-                </>
-                );
-                }
-                }
+                    </tbody>
+                </Table>
+            </>
+        );
+    }
+}
 
-                export default ShowUser;
+export default ShowUser;
