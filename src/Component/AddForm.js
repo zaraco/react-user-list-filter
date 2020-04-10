@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Row, Col, Button} from "react-bootstrap";
+import {Form, Row, Col, Button,Alert} from "react-bootstrap";
 
 
 class AddForm extends Component {
@@ -9,13 +9,14 @@ class AddForm extends Component {
             firstName: '',
             lastName: '',
             gender: 'male',
-            state: 'single'
+            state: 'single',
+            error: ''
         }
     }
 
     changeHandlerName = (e) => {
         this.setState({
-            fistName: e.target.value
+            firstName: e.target.value
         })
     }
 
@@ -49,21 +50,57 @@ class AddForm extends Component {
         })
     }
 
+    clickHandler = (e) => {
+        e.preventDefault()
+        if(this.state.firstName !== '' && this.state.lastName !== '') {
 
+            let newRow = {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                gender: this.state.gender,
+                state: this.state.state
+            }
 
+            let items = JSON.parse(localStorage.getItem('items'))
+            if (!items) {
+                items = []
+            }
+
+            items.push(newRow)
+
+            localStorage.setItem('items', JSON.stringify(items))
+            console.log(items)
+
+            this.setState({
+                firstName: '',
+                lastName: '',
+                gender: 'male',
+                state: 'single',
+                error: ''
+            })
+        } else {
+            this.setState({
+                error: 'Please fill the fields'
+            })
+
+        }
+    }
 
 
     render() {
-        console.log(this.state)
+
+        let errorAlert = this.state.error !== '' ? <Alert variant="danger">
+            {this.state.error} </Alert> : null
         return (
             <>
+                {errorAlert}
                 <Form>
                     <Form.Group as={Row} controlId="formHorizontalName">
                         <Form.Label column sm={2}>
                             First Name
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" placeholder="first name" onChange={this.changeHandlerName}/>
+                            <Form.Control type="text" placeholder="first name" value={this.state.firstName} onChange={this.changeHandlerName}/>
                         </Col>
                     </Form.Group>
 
@@ -72,7 +109,7 @@ class AddForm extends Component {
                             Last Name
                         </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" placeholder="last name" onChange={this.changeHandlerFamily}/>
+                            <Form.Control type="text" placeholder="last name" value={this.state.lastName} onChange={this.changeHandlerFamily}/>
                         </Col>
                     </Form.Group>
                     <fieldset>
@@ -132,7 +169,7 @@ class AddForm extends Component {
                         </Form.Group>
                     </fieldset>
 
-                    <Button variant="success" size="lg" type="submit" block>
+                    <Button variant="success" size="lg" type="submit" block onClick={this.clickHandler}>
                         Add
                     </Button>
                 </Form>
